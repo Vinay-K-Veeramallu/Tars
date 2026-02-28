@@ -553,15 +553,28 @@ function ChatPane({
 
       <div className="glass shrink-0 p-4">
         {sendError && (
-          <div className="mb-3 flex items-center gap-2 rounded-xl border border-red-200/60 bg-red-500/10 px-4 py-2.5 text-sm text-red-600 backdrop-blur-sm dark:border-red-900/40 dark:bg-red-500/15 dark:text-red-400">
+          <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-red-200/60 bg-red-500/10 px-4 py-2.5 text-sm text-red-600 backdrop-blur-sm dark:border-red-900/40 dark:bg-red-500/15 dark:text-red-400">
             <span className="min-w-0 flex-1">{sendError}</span>
-            <button
-              type="button"
-              onClick={() => setSendError(null)}
-              className="shrink-0 font-medium underline"
-            >
-              Dismiss
-            </button>
+            <span className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setSendError(null);
+                  void handleSend();
+                }}
+                disabled={sending || !input.trim()}
+                className="font-medium underline disabled:opacity-50"
+              >
+                Retry
+              </button>
+              <button
+                type="button"
+                onClick={() => setSendError(null)}
+                className="font-medium underline"
+              >
+                Dismiss
+              </button>
+            </span>
           </div>
         )}
         {replyingTo && (
