@@ -33,7 +33,7 @@ const conversations = defineTable({
 })
   .index("by_participants", ["participantIds"]);
 
-// Messages (soft delete: isDeleted, deletedAt)
+// Messages (soft delete: isDeleted, deletedAt; optional parent for reply threads)
 const messages = defineTable({
   conversationId: v.id("conversations"),
   senderId: v.id("users"),
@@ -41,6 +41,7 @@ const messages = defineTable({
   isDeleted: v.boolean(),
   deletedAt: v.optional(v.number()),
   createdAt: v.number(),
+  parentMessageId: v.optional(v.id("messages")),
 })
   .index("by_conversation", ["conversationId"])
   .index("by_conversation_created", ["conversationId", "createdAt"]);
@@ -55,6 +56,15 @@ const unreadCounts = defineTable({
   .index("by_user_conversation", ["userId", "conversationId"])
   .index("by_user", ["userId"]);
 
+// Message reactions: one row per (messageId, userId, emoji). Click same again = remove.
+const reactions = defineTable({
+  messageId: v.id("messages"),
+  userId: v.id("users"),
+  emoji: v.string(), // one of 👍 ❤ 😂 😮 😢
+})
+  .index("by_message", ["messageId"])
+  .index("by_message_emoji_user", ["messageId", "emoji", "userId"]);
+
 export default defineSchema({
   users,
   presence,
@@ -62,4 +72,5 @@ export default defineSchema({
   conversations,
   messages,
   unreadCounts,
+  reactions,
 });

@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
+/* ---- Glassy UI with teal accent ---- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #b2f5ea;
+  --background-end: #e6fffa;
+  --surface: rgba(255, 255, 255, 0.4);
+  --surface-hover: rgba(255, 255, 255, 0.55);
+  --glass-bg: rgba(255, 255, 255, 0.18);
+  --glass-bg-strong: rgba(255, 255, 255, 0.28);
+  --foreground: #134e4a;
+  --muted: #54716d;
+  --border: rgba(255, 255, 255, 0.5);
+  --border-strong: rgba(20, 184, 166, 0.3);
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-muted: rgba(204, 251, 241, 0.85);
+  --accent-soft: rgba(13, 148, 136, 0.12);
+  --online: #22c55e;
+  --online-glow: rgba(34, 197, 94, 0.4);
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --blur: 20px;
+  --blur-strong: 28px;
+  --shadow-sm: 0 2px 8px rgba(13, 148, 136, 0.08);
+  --shadow: 0 8px 32px rgba(13, 148, 136, 0.12);
+  --shadow-md: 0 12px 40px rgba(13, 148, 136, 0.15);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   --safe-area-inset-top: env(safe-area-inset-top, 0px);
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
   --safe-area-inset-left: env(safe-area-inset-left, 0px);
   --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --chat-bg: radial-gradient(ellipse 100% 100% at 70% 20%, rgba(13, 148, 136, 0.25) 0%, transparent 45%),
+    radial-gradient(ellipse 80% 80% at 20% 80%, rgba(20, 184, 166, 0.2) 0%, transparent 45%),
+    linear-gradient(180deg, var(--background) 0%, var(--background-end) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --background-end: #134e4a;
+    --surface: rgba(30, 41, 59, 0.4);
+    --surface-hover: rgba(51, 65, 85, 0.5);
+    --glass-bg: rgba(30, 41, 59, 0.2);
+    --glass-bg-strong: rgba(30, 41, 59, 0.32);
+    --foreground: #f0fdfa;
+    --muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-strong: rgba(45, 212, 191, 0.25);
+    --accent: #2dd4bf;
+    --accent-hover: #5eead4;
+    --accent-muted: rgba(19, 78, 74, 0.8);
+    --accent-soft: rgba(45, 212, 191, 0.15);
+    --online: #4ade80;
+    --online-glow: rgba(74, 222, 128, 0.35);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.3);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --chat-bg: radial-gradient(ellipse 100% 100% at 70% 20%, rgba(45, 212, 191, 0.2) 0%, transparent 45%),
+      radial-gradient(ellipse 80% 80% at 20% 80%, rgba(19, 78, 74, 0.25) 0%, transparent 45%),
+      linear-gradient(180deg, var(--background) 0%, var(--background-end) 100%);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html {
@@ -29,9 +77,9 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: var(--chat-bg);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
@@ -40,3 +88,96 @@ body {
   padding-top: var(--safe-area-inset-top);
   padding-bottom: var(--safe-area-inset-bottom);
 }
+
+/* Glass panels – clearly transparent, frosted see-through */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.2);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-glass);
+}
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(1.2);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-glass);
+}
+.glass-input {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(var(--blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.2);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+@media (prefers-color-scheme: dark) {
+  .glass-input {
+    background: rgba(15, 23, 42, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--online-glow); }
+  50% { opacity: 0.9; box-shadow: 0 0 0 6px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-typing-dot,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.animate-typing-dot {
+  animation: typing-dot 1.2s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Chat message area – keep gradient, no extra bg so glass shows through */
+.chat-messages-bg {
+  background: transparent;
+}
+
+/* Stagger children (use with delay-* in Tailwind) */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
