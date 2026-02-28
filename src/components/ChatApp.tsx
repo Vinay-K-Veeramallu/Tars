@@ -338,7 +338,7 @@ function ChatPane({
     content: string;
     senderName: string;
   } | null>(null);
-  const messagesEndRef = useRef<HTMLElement>(null);
+  const messagesEndRef = useRef<HTMLLIElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [userScrolledUp, setUserScrolledUp] = useState(false);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
